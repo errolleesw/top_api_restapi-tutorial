@@ -74,14 +74,19 @@ app.post('/messages', (req, res) => {
 
 app.delete('/messages/:messageId', (req, res) => {
     const {
-      [req.params.messageId]: message,
-      ...otherMessages
+        [req.params.messageId]: message,
+        ...otherMessages
     } = messages;
-  
+
     messages = otherMessages;
-  
+
     return res.send(message);
-  });
+});
+
+app.get('/session', (req, res) => {
+    return res.send(users[req.me.id]);
+});
+
 
 // sample data to test API's
 
