@@ -6,4 +6,4 @@ This code was created by following along this guide: [How to create a REST API w
 
 Overview of steps
 1. Added simple endpoints on home page to demonstrate use of http methods for API responses.
-2. 
+2. Added now a /user route.
