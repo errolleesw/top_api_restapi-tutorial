@@ -13,9 +13,14 @@ const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+    req.me = users[1];
+    next();
+})
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
@@ -52,6 +57,19 @@ app.get('/messages', (req, res) => {
 
 app.get('/messages/:messageId', (req, res) => {
     return res.send(messages[req.params.messageId]);
+});
+
+app.post('/messages', (req, res) => {
+    const id = uuidv4();
+    const message = {
+        id,
+        text: req.body.text,
+        userId: req.me.id,
+    };
+
+    messages[id] = message;
+
+    return res.send(message);
 });
 
 
